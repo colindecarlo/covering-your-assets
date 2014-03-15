@@ -1,0 +1,6 @@
+{
+	"name": "colindecarlo/covering-your-assets",
+	"require": {
+		"kriswallsmith/assetic": "1.2.*@dev"
+	}
+}
