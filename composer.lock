@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "af624c5b5659b8bb387c77798c0a6066",
+    "hash": "f5a23a875b63c0dbc95e60f438b638a5",
     "packages": [
         {
             "name": "kriswallsmith/assetic",
@@ -79,6 +79,47 @@
             "time": "2014-02-28 18:17:10"
         },
         {
+            "name": "leafo/lessphp",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/leafo/lessphp.git",
+                "reference": "b7cd5c79e82666bcd2dfadb304342311209fb527"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/leafo/lessphp/zipball/b7cd5c79e82666bcd2dfadb304342311209fb527",
+                "reference": "b7cd5c79e82666bcd2dfadb304342311209fb527",
+                "shasum": ""
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.4.x-dev"
+                }
+            },
+            "autoload": {
+                "classmap": [
+                    "lessc.inc.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT",
+                "GPL-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "Leaf Corcoran",
+                    "email": "leafot@gmail.com",
+                    "homepage": "http://leafo.net"
+                }
+            ],
+            "description": "lessphp is a compiler for LESS written in PHP.",
+            "homepage": "http://leafo.net/lessphp/",
+            "time": "2014-02-05 19:36:35"
+        },
+        {
             "name": "symfony/process",
             "version": "v2.4.2",
             "target-dir": "Symfony/Component/Process",
@@ -126,6 +167,17 @@
             "description": "Symfony Process Component",
             "homepage": "http://symfony.com",
             "time": "2014-02-11 13:52:09"
+        },
+        {
+            "name": "twbs/bootstrap",
+            "version": "3.1.1",
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/twbs/bootstrap/archive/v3.1.1.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "type": "library"
         }
     ],
     "packages-dev": [
@@ -136,7 +188,8 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "kriswallsmith/assetic": 20
+        "kriswallsmith/assetic": 20,
+        "leafo/lessphp": 20
     },
     "platform": [
 

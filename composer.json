@@ -1,6 +1,21 @@
 {
 	"name": "colindecarlo/covering-your-assets",
+    "repositories": [
+        {
+            "type": "package",
+            "package": {
+                "name": "twbs/bootstrap",
+                "version": "3.1.1",
+                "dist": {
+                    "url": "https://github.com/twbs/bootstrap/archive/v3.1.1.zip",
+                    "type": "zip"
+                }
+            }
+        }
+    ],
 	"require": {
-		"kriswallsmith/assetic": "1.2.*@dev"
+		"kriswallsmith/assetic": "1.2.*@dev",
+        "leafo/lessphp": "0.4.*@dev",
+        "twbs/bootstrap": "3.1.1"
 	}
 }
