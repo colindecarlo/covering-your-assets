@@ -2,8 +2,16 @@
 
 require_once __DIR__ . '/../../vendor/autoload.php';
 
-use Assetic\Asset\AssetCollection;
+use Assetic\AssetManager;
 use Assetic\Asset\FileAsset;
+use Assetic\Asset\AssetCollection;
+
+$jquery = new FileAsset('jquery-1.11.0.js');
+
+$collection = new AssetCollection(array(
+    new FileAsset('jquery-1.11.0.js'),
+    new FileAsset('asset-collections.js'),
+));
 
 $bootstrapDir = __DIR__ . '/../../vendor/twbs/bootstrap';
 $bootstrap = new AssetCollection(array(
@@ -21,7 +29,19 @@ $bootstrap = new AssetCollection(array(
     new FileAsset($bootstrapDir . '/js/tab.js'),
     new FileAsset($bootstrapDir . '/js/affix.js'),
 ));
-$bootstrap->load();
+
+$manager = new AssetManager();
+$manager->set('jquery', $jquery);
+$manager->set('collection', $collection);
+$manager->set('bootstrap', $bootstrap);
+
+$requestedAsset = $_GET['script'];
+
+if (!$manager->has($requestedAsset)) {
+	header("HTTP/1.0 404 Not Found");
+	exit();
+}
 
 header('Content-Type: application/javascript');
-echo $bootstrap->dump();
+echo $manager->get($requestedAsset)->dump();
+
