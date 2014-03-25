@@ -5,17 +5,21 @@ require_once __DIR__ . '/../../vendor/autoload.php';
 use Assetic\AssetManager;
 use Assetic\Asset\FileAsset;
 use Assetic\Asset\AssetCollection;
+use Assetic\Asset\AssetReference;
 
 $jquery = new FileAsset('jquery-1.11.0.js');
 
+$manager = new AssetManager();
+$manager->set('jquery', $jquery);
+
 $collection = new AssetCollection(array(
-    new FileAsset('jquery-1.11.0.js'),
+    new AssetReference($manager, 'jquery'),
     new FileAsset('asset-collections.js'),
 ));
 
 $bootstrapDir = __DIR__ . '/../../vendor/twbs/bootstrap';
 $bootstrap = new AssetCollection(array(
-    new FileAsset('jquery-1.11.0.js'),
+    new AssetReference($manager, 'jquery'),
     new FileAsset($bootstrapDir . '/js/transition.js'),
     new FileAsset($bootstrapDir . '/js/alert.js'),
     new FileAsset($bootstrapDir . '/js/button.js'),
@@ -30,8 +34,6 @@ $bootstrap = new AssetCollection(array(
     new FileAsset($bootstrapDir . '/js/affix.js'),
 ));
 
-$manager = new AssetManager();
-$manager->set('jquery', $jquery);
 $manager->set('collection', $collection);
 $manager->set('bootstrap', $bootstrap);
 
