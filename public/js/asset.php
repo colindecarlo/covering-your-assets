@@ -2,48 +2,47 @@
 
 require_once __DIR__ . '/../../vendor/autoload.php';
 
+use Assetic\Factory\AssetFactory;
 use Assetic\AssetManager;
 use Assetic\Asset\FileAsset;
-use Assetic\Asset\AssetCollection;
-use Assetic\Asset\AssetReference;
 
-$jquery = new FileAsset('jquery-1.11.0.js');
+$scripts = array(
+	'jquery' => array('@jquery'),
+	'collection' => array('@jquery', 'asset-collection.js'),
+	'bootstrap' => array(
+			'@jquery', 
+			__DIR__ . '/../../vendor/twbs/bootstrap/js/transition.js',
+			__DIR__ . '/../../vendor/twbs/bootstrap/js/alert.js',
+			__DIR__ . '/../../vendor/twbs/bootstrap/js/button.js',
+			__DIR__ . '/../../vendor/twbs/bootstrap/js/carousel.js',
+			__DIR__ . '/../../vendor/twbs/bootstrap/js/collapse.js',
+			__DIR__ . '/../../vendor/twbs/bootstrap/js/dropdown.js',
+			__DIR__ . '/../../vendor/twbs/bootstrap/js/modal.js',
+			__DIR__ . '/../../vendor/twbs/bootstrap/js/tooltip.js',
+			__DIR__ . '/../../vendor/twbs/bootstrap/js/popover.js',
+			__DIR__ . '/../../vendor/twbs/bootstrap/js/scrollspy.js',
+			__DIR__ . '/../../vendor/twbs/bootstrap/js/tab.js',
+			__DIR__ . '/../../vendor/twbs/bootstrap/js/affix.js'
+	)
+);
 
 $manager = new AssetManager();
-$manager->set('jquery', $jquery);
+$manager->set('jquery', new FileAsset('jquery-1.11.0.js'));
 
-$collection = new AssetCollection(array(
-    new AssetReference($manager, 'jquery'),
-    new FileAsset('asset-collections.js'),
-));
-
-$bootstrapDir = __DIR__ . '/../../vendor/twbs/bootstrap';
-$bootstrap = new AssetCollection(array(
-    new AssetReference($manager, 'jquery'),
-    new FileAsset($bootstrapDir . '/js/transition.js'),
-    new FileAsset($bootstrapDir . '/js/alert.js'),
-    new FileAsset($bootstrapDir . '/js/button.js'),
-    new FileAsset($bootstrapDir . '/js/carousel.js'),
-    new FileAsset($bootstrapDir . '/js/collapse.js'),
-    new FileAsset($bootstrapDir . '/js/dropdown.js'),
-    new FileAsset($bootstrapDir . '/js/modal.js'),
-    new FileAsset($bootstrapDir . '/js/tooltip.js'),
-    new FileAsset($bootstrapDir . '/js/popover.js'),
-    new FileAsset($bootstrapDir . '/js/scrollspy.js'),
-    new FileAsset($bootstrapDir . '/js/tab.js'),
-    new FileAsset($bootstrapDir . '/js/affix.js'),
-));
-
-$manager->set('collection', $collection);
-$manager->set('bootstrap', $bootstrap);
+$factory = new AssetFactory(__DIR__);
+$factory->setAssetManager($manager);
 
 $requestedAsset = $_GET['script'];
 
-if (!$manager->has($requestedAsset)) {
+if (!array_key_exists($requestedAsset, $scripts)) {
 	header("HTTP/1.0 404 Not Found");
 	exit();
 }
 
+$script = $scripts[$requestedAsset];
+
+$asset = $factory->createAsset($script);
+
 header('Content-Type: application/javascript');
-echo $manager->get($requestedAsset)->dump();
+echo $asset->dump();
 
